@@ -51,13 +51,31 @@ app.post("/api/add", (request, response) => {
       response.json("System failure", 500);
     }
 
-    console.log(`Saved joke: ${Joke}`);
+    console.log(`Saved joke: ${result}`);
   });
 });
 
 // Updating a joke based on id
 app.put("/api/update/:id", (request, response) => {
-  response.send(`Updating joke with id: ${request.params.id}`);
+  const id = request.params.id;
+
+  Joke.findById(id, (err, results) => {
+    if (err) {
+      response.json("System failure", 500);
+    } else if (results === null) {
+      response.json("Nothing to update with given id", 200);
+    } else {
+      results.title = request.body.title;
+      results.category = request.body.category;
+      results.body = request.body.body;
+      results.save((err, result) => {
+        if (err) {
+          response.json("System failure", 500);
+        }
+      });
+      response.json(`Updated the Joke with id ${id}`);
+    }
+  });
 });
 
 // Deleting a joke based on id
