@@ -2,6 +2,8 @@
 const express = require("express");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+
+const PORT = process.env.PORT || 3001;
 ////// Express setup end //////
 
 ////// Mongoose setup //////
@@ -101,6 +103,6 @@ app.delete("/api/delete/:id", (request, response) => {
   });
 });
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
   console.log("Listening to port 3001");
 });
