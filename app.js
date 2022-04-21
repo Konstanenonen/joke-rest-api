@@ -4,9 +4,12 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // Express setup end
 
+// Mongoose setup
+const mongoose = require("mongoose");
+mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// Mongoose setup end
 
 // Making api routes
-
 // Get all jokes
 app.get("/api/getall", (request, response) => {
   response.send("Print all jokes.");
@@ -23,11 +26,15 @@ app.post("/api/add", (request, response) => {
 });
 
 // Updating a joke based on id
-app.put("api/update/:id", (request, response) => {
+app.put("/api/update/:id", (request, response) => {
   response.send(`Updating joke with id: ${request.params.id}`);
 });
 
 // Deleting a joke based on id
-app.delete("api/delete/:id", (request, response) => {
+app.delete("/api/delete/:id", (request, response) => {
   response.send(`Deleting a joke with id: ${request.params.id}`);
+});
+
+app.listen(3001, () => {
+  console.log("Listening to port 3001");
 });
