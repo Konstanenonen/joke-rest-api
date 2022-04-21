@@ -6,13 +6,33 @@ app.use(express.urlencoded({ extended: true }));
 
 // Mongoose setup
 const mongoose = require("mongoose");
-mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Connectiong to database
+const uri = "mongodb+srv://konsta:AhKzDSMgURg0JGqR@cluster0.ezw9u.mongodb.net/jokes_db?retryWrites=true&w=majority";
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Defining Joke Schema
+const Joke = mongoose.model(
+  "Joke",
+  {
+    title: String,
+    category: String,
+    body: String,
+  },
+  "jokes"  // Defining that Schema should only be used with this collection
+);
 // Mongoose setup end
 
 // Making api routes
 // Get all jokes
 app.get("/api/getall", (request, response) => {
-  response.send("Print all jokes.");
+  Joke.find({}, (err, results) => {
+    if (err) {
+      response.json("System failure", 500);
+    }
+
+    response.json(results, 200);
+  });
 });
 
 // Get one joke based on id
@@ -22,7 +42,19 @@ app.get("/api/get/:id", (request, response) => {
 
 // Add one joke
 app.post("/api/add", (request, response) => {
-  response.send(`Add joke: "${request.body.title}"`);
+  const newJoke = new Joke({
+    title: request.body.title,
+    category: request.body.category,
+    body: request.body.body,
+  });
+
+  newJoke.save((err, result) => {
+    if (err) {
+      response.json("System, failure", 500);
+    }
+
+    console.log(`Saved joke: ${Joke}`);
+  });
 });
 
 // Updating a joke based on id
