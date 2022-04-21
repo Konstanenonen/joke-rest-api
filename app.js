@@ -1,16 +1,14 @@
-// Express setup
+////// Express setup //////
 const express = require("express");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-// Express setup end
+////// Express setup end //////
 
-// Mongoose setup
+////// Mongoose setup //////
 const mongoose = require("mongoose");
-
 // Connectiong to database
 const uri = "mongodb+srv://konsta:AhKzDSMgURg0JGqR@cluster0.ezw9u.mongodb.net/jokes_db?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
 // Defining Joke Schema
 const Joke = mongoose.model(
   "Joke",
@@ -21,7 +19,7 @@ const Joke = mongoose.model(
   },
   "jokes"  // Defining that Schema should only be used with this collection
 );
-// Mongoose setup end
+////// Mongoose setup end //////
 
 // Making api routes
 // Get all jokes
@@ -50,7 +48,7 @@ app.post("/api/add", (request, response) => {
 
   newJoke.save((err, result) => {
     if (err) {
-      response.json("System, failure", 500);
+      response.json("System failure", 500);
     }
 
     console.log(`Saved joke: ${Joke}`);
@@ -64,7 +62,17 @@ app.put("/api/update/:id", (request, response) => {
 
 // Deleting a joke based on id
 app.delete("/api/delete/:id", (request, response) => {
-  response.send(`Deleting a joke with id: ${request.params.id}`);
+  const id = request.params.id;
+
+  Joke.findByIdAndDelete(id, (err, results) => {
+    if (err) {
+      response.json("System failure", 500);
+    } else if (results === null) {
+      response.json("Nothing to delete with given id", 200);
+    } else {
+      response.json(`Deleted the Joke with id ${id} and title ${results.title}`, 200);
+    }
+  });
 });
 
 app.listen(3001, () => {
