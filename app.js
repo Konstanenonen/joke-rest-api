@@ -35,7 +35,15 @@ app.get("/api/getall", (request, response) => {
 
 // Get one joke based on id
 app.get("/api/get/:id", (request, response) => {
-  response.send(`Got joke: ${request.body.title} with id ${request.params.id}`);
+  const id = request.params.id;
+
+  Joke.findById(id, (err, results) => {
+    if (err) {
+      response.json("System failure", 500);
+    }
+
+    response.json(results, 200);
+  });
 });
 
 // Add one joke
