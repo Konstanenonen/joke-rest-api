@@ -63,7 +63,7 @@ app.post("/api/add", (request, response) => {
       response.json("System failure", 500);
     }
 
-    console.log(`Saved joke: ${result}`);
+    response.json(`Saved joke: ${result}`, 200);
   });
 });
 
