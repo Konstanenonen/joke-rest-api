@@ -9,7 +9,7 @@ Joke rest api is as it says a rest api. You can get, update and delete jokes fro
 Returns all of the jokes in the database.
 
 
-### [https://joke-rest-api.herokuapp.com/api/getall](https://joke-rest-api.herokuapp.com/api/add)
+### [https://joke-rest-api.herokuapp.com/api/add](https://joke-rest-api.herokuapp.com/api/add)
 Add a new joke to the database with this route. Takes three different variables from the request body: title, category and body.
 
 ### [https://joke-rest-api.herokuapp.com/api/get/:id](https://joke-rest-api.herokuapp.com/api/get/:id)
