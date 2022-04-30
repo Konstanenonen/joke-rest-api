@@ -1,7 +1,9 @@
 # Joke rest api
 
 ## [See the API in use here](https://konstanenonen.github.io/joke-frontend)
+<b>Open the developer console to see the logged api responses.</b>
 
+# Introduction
 Joke rest api is as it says a rest api. You can get, update and delete jokes from Mongodb database with this api. This application uses the express library for routing and mongoose library for database functions.
 
 ## Routes
