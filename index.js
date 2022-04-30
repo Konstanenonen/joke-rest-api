@@ -4,14 +4,17 @@ const cors = require("cors");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
-const PORT = process.env.PORT || 3001;
 ////// Express setup end //////
+
+////// configuring enviroment parameters //////
+require('dotenv').config();
+const uri = process.env.URI;
+const PORT = process.env.PORT || 3001;
+////// end of configuring enviroment parameters //////
 
 ////// Mongoose setup //////
 const mongoose = require("mongoose");
 // Connectiong to database
-const uri = "mongodb+srv://konsta:AhKzDSMgURg0JGqR@cluster0.ezw9u.mongodb.net/jokes_db?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 // Defining Joke Schema
 const Joke = mongoose.model(
