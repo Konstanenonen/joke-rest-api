@@ -17,8 +17,8 @@ Add a new joke to the database with this route. Takes three different variables 
 ### [https://joke-rest-api.herokuapp.com/api/get/:id](https://joke-rest-api.herokuapp.com/api/get/:id)
 Return a joke with a specific id placed on the ":id" part of the route.
 
-### [https://joke-rest-api.herokuapp.com/update/:id](https://joke-rest-api.herokuapp.com/update/:id)
+### [https://joke-rest-api.herokuapp.com/api/update/:id](https://joke-rest-api.herokuapp.com/api/update/:id)
 This route updates the joke with a specific id placed on ":id" part of the route. Takes three different variables from the request body: title, category and body.
 
-### [https://joke-rest-api.herokuapp.com/delete/:id](https://joke-rest-api.herokuapp.com/delete/:id)
+### [https://joke-rest-api.herokuapp.com/api/delete/:id](https://joke-rest-api.herokuapp.com/api/delete/:id)
 This route deletes the joke with a specific id placed on ":id" part of the route
